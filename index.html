@@ -6,6 +6,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css" />
     <!-- <link rel="icon" href="images/vecteezy_3d-book-icon-with-transparent-background_9377766_900.png" type="image/x-icon"> -->
   </head>
@@ -29,14 +30,11 @@
                   <label for="task">TASK</label>
                   <input type="text" id="task" placeholder="Task">
 
-                  <label for="details">DETAILS</label>
-                  <input type="text" id="details" placeholder="Details">
+                  <label for="modalDate">DEADLINE</label>
+                  <input type="date" id="modalDate" placeholder="Deadline">
 
-                  <label for="date">DATE</label>
-                  <input type="date" id="date" placeholder="Deadline">
-
-                  <label for="progress">PROGRESS</label>
-                  <select id="progress" name="progress">
+                  <label for="modalProgress">PROGRESS</label>
+                  <select id="modalProgress" name="modalProgress">
                     <option value="notStarted">NOT STARTED</option>
                     <option value="inProgress">IN PROGRESS</option>
                     <option value="done">DONE</option>
@@ -48,8 +46,59 @@
         </div>
       </div>
       <div id="overlay" class="hidden"></div>
+
+      <div id="leftBarDiv">
+        <button type="button" id="leftBarLogo" class="leftBarbutton">
+            <i class="fa fa-bars fa-2x"></i>
+            <div id="logoText">Tasks</div>
+        </button>
+        <!-- Archive also button with img -->
+        <button type="button" class="button hidden" id="archive">Archive</button>
+        <!-- This date selector is ugly af change it to button with calendar img -->
+        <input type="date" class="hidden" id="selectDate"></input>
+      </div>
       
-      <div id="tasksDisplay"></div>
+      <div id="tasksDisplay">
+        <!-- I want all tasks to display in rows -->
+        <!-- Task, Date, Progress (just a column by color - red or green -->
+        <!-- If checkbox is clicked then move task to Archive -->
+        <div class="row rowHeader">
+            <div class="task">Task</div>
+            <div class="date">Deadline</div>
+            <div class="progress">Progress</div>
+            <div class="done">Done</div>
+        </div>
+        <div class="row">
+            <div class="task">Do Laundry</div>
+            <div class="date">15/09/2023</div>
+            <div class="progress">Not Started</div>
+            <input type="checkbox" class="done"></input>
+        </div>
+        <div class="row">
+            <div class="task">Clean floors</div>
+            <div class="date">17/09/2023</div>
+            <!-- If you click this, then change color from red to green -->
+            <div class="progress" id="progressTrack">In Progress</div>
+            <!-- Maybe add a checkbox- if done remove it from list-->
+            <input type="checkbox" class="done"></input>
+        </div>
+      </div>
+
+      <!-- On clicking Archive button -->
+      <div id="archive" class="hidden">
+        <!-- Can't edit the tasks here, readOnly -->
+        <div class="row rowHeader">
+            <div class="task">Task</div>
+            <div class="date">Deadline</div>
+            <div class="progress">Progress</div>
+        </div>
+        <div class="row">
+            <div class="task">Do Laundry</div>
+            <div class="date">15/09/2023</div>
+            <div class="progress">Not Started</div>
+        </div>
+      </div>
+
     </div>
     <script src="script.js"></script>
   </body>

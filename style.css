@@ -9,6 +9,28 @@
     flex-direction: column;
     gap: 4vh;
 }
+#leftBarLogo {
+    display: flex;
+    gap: 1vw;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+#logoText {
+    font-size:x-large;
+}
+/* The button on hamburger icon should expand the navbar to this style. Otherwise it should be tiny*/
+#leftBarDiv {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    /* max-width: 10vw; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
+    width: 12vw;
+    height: 100%;
+    overflow: auto;
+    position: fixed;
+    border: 1px solid black;
+}
 .button {
     padding-top: 2vh;
     padding: 0.5vw;
@@ -39,10 +61,13 @@ h1 {
 }
 #tasksDisplay {
     display: flex;
-    flex-wrap: wrap;
-    padding-top: 3vh;
-    row-gap: 3vh;
-    column-gap: 4vh;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    min-width: 70%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
     z-index: 0;
 }
 #myModal {
@@ -79,7 +104,26 @@ h1 {
 #taskForm {
     display: flex;
     flex-direction: column;
-    gap: 2vh;
+    gap: 3vh;
+}
+.row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 5vw;
+    font-size: large;
+    text-align: center;
+}
+.rowHeader {
+    border: 1px solid black;
+    font-weight: 500;
+    font-size: larger;
+    padding: 0.5vw;
+}
+.done {
+    /* Style the checkbox to a max-width, max-height so it doesn't act bizarre when row height increases*/
+    width: 20px;
+    height: 20px;
+    max-width: 20px;
+    max-height: 20px;
 }
 
 @media (prefers-color-scheme: dark) {
