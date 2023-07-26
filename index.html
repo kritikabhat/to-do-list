@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>ToDo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <!-- <link rel="icon" href="images/vecteezy_3d-book-icon-with-transparent-background_9377766_900.png" type="image/x-icon"> -->
+  </head>
+
+  <header id="headerDiv">
+    <div id="logo">
+      <h1>Tasks To Do</h1>
+    </div>
+    <div id="addBtnDiv">
+      <button type="button" class="button" id="addBtn">Add Task</button>
+    </div>
+  </header>
+
+  <body>
+    <div id="container">
+      <div id="myModal" class="hidden">
+        <div id="modalContainer">
+                <div><u>Enter Task details:</u></div>
+                <form method="post" id="taskForm">
+
+                  <label for="task">TASK</label>
+                  <input type="text" id="task" placeholder="Task">
+
+                  <label for="details">DETAILS</label>
+                  <input type="text" id="details" placeholder="Details">
+
+                  <label for="date">DATE</label>
+                  <input type="date" id="date" placeholder="Deadline">
+
+                  <label for="progress">PROGRESS</label>
+                  <select id="progress" name="progress">
+                    <option value="notStarted">NOT STARTED</option>
+                    <option value="inProgress">IN PROGRESS</option>
+                    <option value="done">DONE</option>
+                  </select>
+                </form>
+                <div id="formButtonContainer">
+                  <button type="button" form="taskForm" class="button" id="submitBtn">Submit</button>
+                </div>
+        </div>
+      </div>
+      <div id="overlay" class="hidden"></div>
+      
+      <div id="tasksDisplay"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
