@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css" />
     <!-- <link rel="icon" href="images/vecteezy_3d-book-icon-with-transparent-background_9377766_900.png" type="image/x-icon"> -->
   </head>
-
+  
   <header id="headerDiv">
     <div id="logo">
       <h1>Tasks To Do</h1>
@@ -22,16 +22,13 @@
 
   <body>
     <div id="container">
-        <!-- What if instead of modal, it just adds a blank row to the Tasks display? -->
       <div id="myModal" class="hidden">
         <div id="modalContainer">
                 <div><u>Enter Task details:</u></div>
                 <form method="post" id="taskForm">
-
                   <input type="text" id="task" placeholder="Task">
                   <input type="date" id="date">
-                  <!-- Instead of ugly dropdown which confuses me coz the final row isn't a dropdown, can i make similar toggle button here too? -->
-                  <select id="progress" name="progress">
+                  <select id="progressCheckBox" name="progressCheckBox">
                     <option value="notStarted">NOT STARTED</option>
                     <option value="inProgress">IN PROGRESS</option>
                   </select>
@@ -43,51 +40,26 @@
       </div>
       <div id="overlay" class="hidden"></div>
 
-      <div id="leftBarDiv">
-        <button type="button" id="leftBarBtn" class="">
-            <i class="fa fa-bars fa-2x"></i>
-            <div id="logoText" class="hidden">More</div>
-        </button>
-        <!-- also add images? -->
-        <button type="button" class="button hidden" id="archive">Archive</button>
-        <!-- Let project open up its own page with a checklist-->
-        <button type="button" class="button hidden" id="project">Project</button>
-        <!-- This date selector is ugly af change it to button with calendar img -->
-        <input type="date" class="hidden" id="selectDate"></input>
+      <div id="leftBar">
+        <button type="button" class="button" id="homeBtn">Home</button>
+        <button type="button" class="button" id="archiveBtn">Archive</button>
+        <button type="button" class="button" id="projectBtn">Project</button>
       </div>
       
-      <div id="tasksDisplay">
-        <!-- I want all tasks to display in rows -->
-        <!-- Task, Date, Progress (just a column by color - red or green -->
-        <!-- If checkbox is clicked then move task to Archive -->
-        <div class="row rowHeader">
+      <div id="tasksDisplay" class="tasksDisplay">
+        <div class="rowHeader">
             <div class="task">Task</div>
             <div class="date">Deadline</div>
             <div class="progress">Progress</div>
             <div class="done">Done</div>
         </div>
-        <div class="row">
-            <div class="task">Clean floors</div>
-            <div class="date">2023-09-17</div>
-            <!-- If you click this, then change color from red to green -->
-            <div class="progress inProgress" id="progressTrack">In Progress</div>
-            <!-- Maybe add a checkbox- if done remove it from list-->
-            <input type="checkbox" class="done"></input>
-        </div>
       </div>
 
-      <!-- On clicking Archive button -->
-      <div id="archive" class="hidden">
-        <!-- Can't edit the tasks here, readOnly -->
-        <div class="row rowHeader">
+      <div id="archiveDiv" class="hidden">
+        <div class="rowHeader">
             <div class="task">Task</div>
             <div class="date">Deadline</div>
             <div class="progress">Progress</div>
-        </div>
-        <div class="row">
-            <div class="task">Do Laundry</div>
-            <div class="date">15/09/2023</div>
-            <div class="progress notStarted">Not Started</div>
         </div>
       </div>
 

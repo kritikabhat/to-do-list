@@ -1,5 +1,9 @@
 * {
     font-family: 'Roboto', sans-serif;
+    user-select: none;
+}
+.hidden {
+    display: none;
 }
 #container {
     letter-spacing: 0.1rem;
@@ -9,46 +13,18 @@
     flex-direction: column;
     gap: 4vh;
 }
-#leftBarBtn { /* Looks ugly but not priority right now */
-    display: flex;
-    gap: 1.5vw; /* This gap was for the Div text which I have removed. But maybe i will add it to expanded navbar.*/
-    padding-left: 0.5vw;
-    padding-right: 0.5vw;
-    width: 3vw;
-    margin: 0.5vw;
-}
-#logoText { /* If I add the text to expanded then use, else delete */
-    font-size:x-large;
-    letter-spacing: 0.1rem;
-}
-
-#leftBarDiv {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    max-width: 5vw; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
-    height: 100%;
-    overflow: auto;
-    position: fixed;
-    border-right: 1px solid rgba(0,0,0, 0.3);
-}
-/* The button on hamburger icon should expand the navbar to this style. Otherwise it should be tiny*/
-#expandedLeftBar {
+#leftBar {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin: 0;
-    padding: 0;
-    width: 12vw !important; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
+    padding: 1vw;
+    width: 11vw !important; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
     height: 100%;
     overflow: auto;
     position: fixed;
     border-right: 1px solid rgba(0,0,0, 0.3);
 }
-
-
-
 .button {
     padding-top: 2vh;
     padding: 0.5vw;
@@ -78,16 +54,18 @@
 h1 {
     padding-left: 1vw;
 }
-#tasksDisplay {
+.tasksDisplay {
     display: flex;
     flex-direction: column;
-    /* flex-wrap: wrap; */
     min-width: 70%;
     padding-top: 2vh;
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
     z-index: 0;
+}
+.tasksDisplayHide {
+    display: none;
 }
 #myModal {
     position: absolute;
@@ -117,30 +95,33 @@ h1 {
     align-items: center;
     justify-content: center;
 }
-.hidden {
-    display: none;
-}
 #taskForm {
     display: flex;
     flex-direction: column;
     gap: 3vh;
+}
+.rowHeader {
+    border: 1px solid rgba(0,0,0, 0.3);
+    font-weight: 500;
+    font-size: larger;
+    padding: 0.5vw;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) 5vw;
+    text-align: center;
 }
 .row {
     display: grid;
     grid-template-columns: repeat(3, 1fr) 5vw;
     font-size: large;
     text-align: center;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+    padding-bottom: 1vh;
 }
 .row > .progress {
     margin-left: 5vw;
     margin-right: 5vw;
     border-radius: 0.5vw;
-}
-.rowHeader {
-    border: 1px solid black;
-    font-weight: 500;
-    font-size: larger;
-    padding: 0.5vw;
+    border: 1px solid rgba(0,0,0, 0.3);
 }
 .inProgress {
     background-color: rgb(80, 200, 120, 0.7);
@@ -155,7 +136,9 @@ h1 {
     max-width: 20px;
     max-height: 20px;
 }
-
+.completed {
+    background-color: rgb(80, 200, 120, 0.7);
+}
 
 /* Later. Needs changes
 @media (prefers-color-scheme: dark) {
