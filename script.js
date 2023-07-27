@@ -121,8 +121,20 @@ const setUpPage  = () => {
     })
 
     leftBarBtn.addEventListener("click", () => {
-        console.log("Update the leftNavBar")
-        leftBarDiv.setAttribute("id", "leftBarDiv")
+        const logoText = document.getElementById("logoText")
+        const archive = document.getElementById("archive")
+        const project = document.getElementById("project")
+        if (leftBarDiv.id === "leftBarDiv") {
+            leftBarDiv.setAttribute("id", "expandedLeftBar")
+            logoText.classList.remove("hidden")
+            archive.classList.remove("hidden")
+            project.classList.remove("hidden")
+        } else {
+            leftBarDiv.setAttribute("id", "leftBarDiv")
+            logoText.classList.add("hidden")
+            archive.classList.add("hidden")
+            project.classList.add("hidden")
+        }  
     })
 
 
