@@ -9,28 +9,36 @@
     flex-direction: column;
     gap: 4vh;
 }
-#leftBarLogo {
+
+#leftBarBtn { /* Looks ugly but not priority right now */
     display: flex;
-    gap: 1vw;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    /* gap: 1vw; This gap was for the Div text which I have removed. But maybe i will add it to expanded navbar.*/
+    padding-left: 0.5vw;
+    padding-right: 0.5vw;
+    width: 4vw;
+    margin: 0.5vw;
 }
-#logoText {
+#logoText { /* If I add the text to expanded then use, else delete */
     font-size:x-large;
 }
-/* The button on hamburger icon should expand the navbar to this style. Otherwise it should be tiny*/
 #leftBarDiv {
     display: flex;
     flex-direction: column;
     margin: 0;
     padding: 0;
-    /* max-width: 10vw; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
-    width: 12vw;
+    max-width: 5vw; /*Using this made my nav bar tiny when it the other buttons are hidden!*/
     height: 100%;
     overflow: auto;
     position: fixed;
-    border: 1px solid black;
+    border-right: 1px solid rgba(0,0,0, 0.3);
 }
+/* The button on hamburger icon should expand the navbar to this style. Otherwise it should be tiny*/
+#expandedLeftBar {
+    max-width: 10vw !important; /* Try this as rest of the style is same as when it is small */
+}
+
+
+
 .button {
     padding-top: 2vh;
     padding: 0.5vw;
@@ -112,11 +120,22 @@ h1 {
     font-size: large;
     text-align: center;
 }
+.row > .progress {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    border-radius: 0.5vw;
+}
 .rowHeader {
     border: 1px solid black;
     font-weight: 500;
     font-size: larger;
     padding: 0.5vw;
+}
+.inProgress {
+    background-color: rgb(80, 200, 120, 0.7);
+}
+.notStarted {
+    background-color: rgb(240,128,128,0.5);
 }
 .done {
     /* Style the checkbox to a max-width, max-height so it doesn't act bizarre when row height increases*/
@@ -126,6 +145,8 @@ h1 {
     max-height: 20px;
 }
 
+
+/* Later. Needs changes
 @media (prefers-color-scheme: dark) {
     :root {
         color-scheme: dark;
@@ -139,4 +160,4 @@ h1 {
     #middleSection {
         background-color: 	rgb(52, 52, 52);
     }
-}
+}*/
