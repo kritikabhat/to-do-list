@@ -1,4 +1,3 @@
-const container = document.getElementById("container")
 const tasksDisplay = document.getElementById("tasksDisplay")
 const myModal = document.getElementById("myModal")
 const overlay = document.getElementById("overlay")
@@ -10,30 +9,29 @@ const homeBtn = document.getElementById("homeBtn")
 const archiveDiv = document.getElementById("archiveDiv")
 const tasks = []
 
-const handleProjectBtn = () => { // Open up new section again
+const handleProjectBtn = () => {
 
 }
-
-const taskFactory = (task, date, progress) => { // working.
+const taskFactory = (task, date, progress) => {
     return { task, date, progress };
 }
-const closeAddTaskModal = () => { // working.
+const closeAddTaskModal = () => {
     myModal.classList.add("hidden")
     overlay.classList.add("hidden")
 }
-const resetTaskModal = (task, date, progressCheckBox) => { // working.
+const resetTaskModal = (task, date, progressCheckBox) => {
     task.value = ""
     date.value = ""
     progressCheckBox.value = ""
     task.placeholder = "Task"
     progressCheckBox.value = "notStarted"
 }
-const addTask = (task, date, progress) => { // working.
+const addTask = (task, date, progress) => {
     const taskRow = taskFactory(task, date, progress)
-    tasks.push(taskRow)
+    tasks.push(taskRow) // Add to tasks[]
     addTaskToDom(taskRow)
 }
-const handleSubmitBtn = () => { // working.
+const handleSubmitBtn = () => {
     const task = document.getElementById("task")
     const date = document.getElementById("date")
     const progressCheckBox = document.getElementById("progressCheckBox")
@@ -47,11 +45,11 @@ const handleSubmitBtn = () => { // working.
     closeAddTaskModal()
     resetTaskModal(task, date, progressCheckBox)
 }
-const handleAddBtn = () => { // working. // Does a method make sense?
+const handleAddBtn = () => {
     myModal.classList.remove("hidden")
     overlay.classList.remove("hidden")
 }
-const changeProgress = (e) => { // Working // But very ugly code?
+const changeProgress = (e) => {
     if (e.target.textContent === "In Progress") {
         e.target.textContent = "Not Started"
         e.target.classList.remove("inProgress")
@@ -62,18 +60,18 @@ const changeProgress = (e) => { // Working // But very ugly code?
         e.target.classList.add("inProgress")
     } 
 }
-const handleHomeBtn = () => { // working
+const handleHomeBtn = () => {
     tasksDisplay.classList.add("tasksDisplay")
     tasksDisplay.classList.remove("hidden")
     archiveDiv.classList.add("hidden")
     archiveDiv.classList.remove("tasksDisplay")
 }
-const handleArchiveBtn = () => { // Working
+const handleArchiveBtn = () => {
     tasksDisplay.classList.add("hidden")
     tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("tasksDisplay")
 }
-const handleDoneCheckBox = (e) => { // Working. "Hidden" on the row, move to Archive, delete from "tasks" storage
+const handleDoneCheckBox = (e) => {
     if (e.target.checked === true) { 
         e.target.parentNode.classList.add("hidden")
         e.target.parentNode.classList.remove("row")  
@@ -81,18 +79,17 @@ const handleDoneCheckBox = (e) => { // Working. "Hidden" on the row, move to Arc
     const children = e.target.parentNode.children
     let arr = []
 
-    for (const child of children) { // arr=["Clean", "2023-09-17", "In Progress", "some undefined crap i dont care about"]
+    for (const child of children) {
         arr.push(child.textContent)
     }
     const taskRow = taskFactory(arr[0], arr[1], "Complete")
 
-    // Delete from store
-    for (let i = 0; i < tasks.length; i++) {
+    for (let i = 0; i < tasks.length; i++) { // Remove from tasks[]
        if (tasks[i].task === taskRow.task) tasks.splice(i, 1)
     }
     moveToArchive(taskRow)
 }
-const moveToArchive = (taskRow) => { // Working. Moves rows to Archive section. 
+const moveToArchive = (taskRow) => {
     const newRow = document.createElement("div")
     let arr = ["task", "date", "progress"]
     let taskDetail
@@ -104,10 +101,10 @@ const moveToArchive = (taskRow) => { // Working. Moves rows to Archive section.
         taskDetail.textContent = taskRow[item]
         newRow.appendChild(taskDetail)
     });
-    newRow.classList.add("row")
+    newRow.classList.add("archiveRow")
     archiveDiv.appendChild(newRow)
 }
-const addTaskToDom = (taskRow) => { // Working.
+const addTaskToDom = (taskRow) => {
     const newRow = document.createElement("div")
     let arr = ["task", "date", "progress"]
     let taskDetail
@@ -122,7 +119,7 @@ const addTaskToDom = (taskRow) => { // Working.
         newRow.appendChild(taskDetail)
     });
 
-    taskDetail = document.createElement("input") // For done
+    taskDetail = document.createElement("input")
     taskDetail.setAttribute("type", "checkbox")
     taskDetail.classList.add("done")
     newRow.appendChild(taskDetail)
@@ -130,22 +127,51 @@ const addTaskToDom = (taskRow) => { // Working.
     newRow.classList.add("row")
     tasksDisplay.appendChild(newRow)
 }
+const unArchiveTask = (e) => {
+    const homeRows = tasksDisplay.children
+    for (const row of homeRows) {
+        if (row.children[0].firstChild.textContent === e.target.parentNode.firstChild.textContent) {
+            row.classList.remove("hidden")
+            row.classList.add("row")
+            row.children[3].checked = false
+            e.target.parentNode.classList.add("hidden")
+            e.target.parentNode.classList.remove("archiveRow")
+
+            const taskRow = taskFactory( // Re-Add to tasks []
+                e.target.parentNode.children[0].textContent, 
+                e.target.parentNode.children[1].textContent, 
+                "Not Started")
+            tasks.push(taskRow)
+        }
+    }
+    return
+}
+
 const setUpPage  = () => {
-    addTask("Meet Suzy", "2023-08-22", "Not Started") // Setting up with one task
+    addTask("Meet Suzy", "2023-08-22", "Not Started")
+    addTask("Dance", "2023-08-22", "Not Started")
+    addTask("Shower", "2022-15-09", "In Progress")
     addBtn.addEventListener("click", handleAddBtn)
     homeBtn.addEventListener("click", handleHomeBtn)
     archiveBtn.addEventListener("click", handleArchiveBtn)
     submitBtn.addEventListener("click", handleSubmitBtn)
     tasksDisplay.addEventListener("click", (e) => {
-        if (e.target.classList[0] === "progress" && e.target.parentNode.classList[0] !== "rowHeader")
+        if (e.target.classList[0] === "progress")
             changeProgress(e)
-        else if (e.target.classList[0] === "done" && e.target.parentNode.classList[0] !== "rowHeader")
+        else if (e.target.classList[0] === "done")
             handleDoneCheckBox(e)
         else
             return
     })
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeAddTaskModal()
-    })   
+    })
+
+    archiveDiv.addEventListener("click", (e) => {
+        if (e.target.classList[0] === "progress")
+            unArchiveTask(e)
+        else return
+    })
+
 }
 setUpPage()
