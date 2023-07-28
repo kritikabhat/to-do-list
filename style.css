@@ -2,8 +2,8 @@
     font-family: 'Roboto', sans-serif;
     user-select: none;
 }
-.hidden {
-    display: none;
+.hidden { /* Trying to switch pages using just this */
+    display: none !important;
 }
 #container {
     letter-spacing: 0.1rem;

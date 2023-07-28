@@ -19,11 +19,8 @@ const addProjectBtn = document.getElementById("addProjectBtn")
 const leftBar = document.getElementById("leftBar")
 const projectModal = document.getElementById("projectModal")
 const projectFormBtn = document.getElementById("projectFormBtn")
-// const allUL = Array.from(projectPage.getElementsByClassName("projectUL"))
-// Can access directly in foreach element.textContent for abvoe array
 
 const tasks = []
-
 const taskFactory = (task, date, progress) => {
     return { task, date, progress };
 }
@@ -57,7 +54,7 @@ const handleSubmitBtn = () => {
     closeAddTaskModal()
     resetTaskModal(task, date, progressCheckBox)
 }
-const handleAddBtn = () => {
+const handleAddBtn = () => { // nothing to change.
     myModal.classList.remove("hidden")
     overlay.classList.remove("hidden")
 }
@@ -74,28 +71,19 @@ const changeProgress = (e) => {
 }
 const handleHomeBtn = () => {
     tasksDisplay.classList.add("tasksDisplay")
-    tasksDisplay.classList.remove("hidden")
     archiveDiv.classList.add("hidden")
-    archiveDiv.classList.remove("tasksDisplay")
-    projectPage.classList.remove("projectPage")
     projectPage.classList.add("hidden")
     projectModal.classList.add("hidden")
-    projectModal.classList.remove("projectPage")
-    selectedProject.classList.remove("projectPage")
     selectedProject.classList.add("hidden")
+    tasksDisplay.classList.remove("hidden")
 }
 const handleArchiveBtn = () => {
     tasksDisplay.classList.add("hidden")
-    tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("tasksDisplay")
-    archiveDiv.classList.remove("hidden")
-    projectPage.classList.remove("projectPage")
     projectPage.classList.add("hidden")
     projectModal.classList.add("hidden")
-    projectModal.classList.remove("projectPage")
-    selectedProject.classList.remove("projectPage")
-    selectedProject.classList.add("hidden")
-        
+    selectedProject.classList.add("hidden") 
+    archiveDiv.classList.remove("hidden")
 }
 const handleDoneCheckBox = (e) => {
     if (e.target.checked === true) { 
@@ -176,29 +164,19 @@ const unArchiveTask = (e) => {
 }
 const handleProjectBtn = () => {
     tasksDisplay.classList.add("hidden")
-    tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("hidden")
-    archiveDiv.classList.remove("tasksDisplay")
     projectPage.classList.add("projectPage")
-    projectPage.classList.remove("hidden")
-
     projectModal.classList.add("hidden")
-    projectModal.classList.remove("projectPage")
-    selectedProject.classList.remove("projectPage")
     selectedProject.classList.add("hidden")
-        
+    projectPage.classList.remove("hidden")
 }
 const handleAddProjectBtn = () => {
-    projectModal.classList.remove("hidden")
     projectModal.classList.add("projectPage")
-    projectPage.classList.remove("projectPage")
     projectPage.classList.add("hidden")
     tasksDisplay.classList.add("hidden")
-    tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("hidden")
-    archiveDiv.classList.remove("tasksDisplay")
-    selectedProject.classList.remove("projectPage")
     selectedProject.classList.add("hidden")
+    projectModal.classList.remove("hidden")
 }
 const addProjectToProjectDom = () => { // Adds project to the Project page with no tasks yet
     const li = document.createElement("li")
@@ -208,7 +186,6 @@ const addProjectToProjectDom = () => { // Adds project to the Project page with 
         return
     }
     li.textContent = projectName.value
-    // li.classList.add("projectUL") 
     projectListDisplay.appendChild(li)
     closeProjectModal()
     resetProjectModal(projectName)
@@ -216,51 +193,33 @@ const addProjectToProjectDom = () => { // Adds project to the Project page with 
 const closeProjectModal = () => {
     projectModal.classList.add("hidden")
     projectModal.classList.remove("projectPage")
+    projectPage.classList.add("projectPage")
+    projectPage.classList.remove("hidden")
 }
 const resetProjectModal = (projectName) => {
     projectName.value = ""
     projectName.placeholder = "New Project"
 }
-
 const projectPageSetUp = () => {
-    // If you click the radio box, it should cross the task
-    // Add option to delete (with confirm) the task, since not adding projects to storage right now
-    // This delete option should be on projectListDisplay page (right side of each project name), update addProjectToProjectDom for this.
-
     addProjectBtn.addEventListener("click", () => {
-        // Open up a small modal on the page (no overlay) that takes Project name
         handleAddProjectBtn()
     })
     projectFormBtn.addEventListener("click", () => {
         addProjectToProjectDom()
     })
-
-    // e.currentTarget is giving whole projectListDisplay div object with all children
-    // e.target is giving the clicked ul - we can use this easily
     projectListDisplay.addEventListener("click", (e) => {
-        console.log(e.target.textContent) // It can be used for Title of new page I guess?
+        console.log(e.target.textContent)
         selectedProjectDisplay()
         selectedProjectDOM(e)
     })
-
-    
-    
 }
-
-const addTaskToProject = () => {
-
-}
-const selectedProjectDisplay = () => { // Switches over to the selected Project page, but has nothing inside
-    selectedProject.classList.remove("hidden")
+const selectedProjectDisplay = () => { // Switches over to the selected Project page
     selectedProject.classList.add("projectPage")
-    projectModal.classList.remove("projectPage")
     projectModal.classList.add("hidden")
-    projectPage.classList.remove("projectPage")
     projectPage.classList.add("hidden")
     tasksDisplay.classList.add("hidden")
-    tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("hidden")
-    archiveDiv.classList.remove("tasksDisplay")
+    selectedProject.classList.remove("hidden")
 }
 const selectedProjectDOM = (e) => { // Maybe club this with above one after cleaning up yucky code
     projectHeading.textContent = e.target.textContent
@@ -269,30 +228,25 @@ const selectedProjectDOM = (e) => { // Maybe club this with above one after clea
         addTaskProjectModal.classList.add("projectPage")
         addTaskProjectModal.classList.remove("hidden")
         selectedProject.classList.add("hidden")
-        selectedProject.classList.remove("projectPage")
-        projectModal.classList.remove("projectPage")
         projectModal.classList.add("hidden")
-        projectPage.classList.remove("projectPage")
         projectPage.classList.add("hidden")
         tasksDisplay.classList.add("hidden")
-        tasksDisplay.classList.remove("tasksDisplay")
         archiveDiv.classList.add("hidden")
-        archiveDiv.classList.remove("tasksDisplay")
     })
 
     taskFormBtn.addEventListener("click", () => {
         const li = document.createElement("li")
         const taskName = document.getElementById("taskName")
         if (taskName.value === "") {
-            alert(`Task is mandatory, click "Project" in left bar if you want to go back.`)
+            alert(`Task is mandatory.`)
+            closeAddTaskProjectModal()
             return
         }
         li.textContent = taskName.value
-        // li.classList.add("projectUL")
-        li.contentEditable = true // For the tasks 
+        li.contentEditable = true
         tasksInProject.appendChild(li)
-        closeAddTaskProjectModal() // Working now
-        resetAddTaskProjectModal(taskName) // reset not working
+        closeAddTaskProjectModal()
+        resetAddTaskProjectModal(taskName)
     })
 }
 const closeAddTaskProjectModal = () => {
