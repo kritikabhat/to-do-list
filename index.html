@@ -16,7 +16,7 @@
       <h1>Tasks To Do</h1>
     </div>
     <div id="addBtnDiv">
-      <button type="button" class="button" id="addBtn">+</button>
+      <button type="button" class="button" id="addBtn">+ Task</button>
     </div>
   </header>
 
@@ -24,7 +24,7 @@
     <div id="container">
       <div id="myModal" class="hidden">
         <div id="modalContainer">
-                <div><u>Enter Task details:</u></div>
+                <div style="font-size: x-large;"><u>Enter Task details:</u></div>
                 <form method="post" id="taskForm">
                   <input type="text" id="task" placeholder="Task">
                   <input type="date" id="date">
@@ -41,9 +41,10 @@
       <div id="overlay" class="hidden"></div>
 
       <div id="leftBar">
-        <button type="button" class="button" id="homeBtn">Home</button>
-        <button type="button" class="button" id="archiveBtn">Archive</button>
-        <button type="button" class="button" id="projectBtn">Project</button>
+        <button type="button" class="button leftBarButton" id="homeBtn">Home</button>
+        <button type="button" class="button leftBarButton" id="archiveBtn">Archive</button>
+        <button type="button" class="button leftBarButton" id="projectBtn">Project</button>
+        <button type="button" class="button addProjectBtn" id="addProjectBtn">+ Project</button>
       </div>
       
       <div id="tasksDisplay" class="tasksDisplay">
@@ -63,20 +64,36 @@
         </div>
       </div>
 
-<!-- Project checklist --> <!-- How to get this as editable, like using + would add new Project, then + for tasks -->
-<!-- I guess this is easy via simple input text one. So, I should use that + checkbox. But above one works with modal better-->
       <div id="projectPage" class="hidden">
-        <div class="row rowHeader">
-            <div class="task">Clean Linen</div> 
+        <div class="pageHeader">Current Projects:</div>
+        <ol id="projectListDisplay"></ol>
+      </div>
+
+      <div id="projectModal" class="hidden">
+        <form method="post" id="projectForm" class="projectPage projectForm">
+          <label for="projectName" style="font-size: large;">ADD NEW PROJECT</label>
+          <input type="text" id="projectName" placeholder="New Project">
+          <button type="button" class="button" id="projectFormBtn">Add</button>
+        </form>
+      </div>
+
+      <div id="addTaskProjectModal" class="hidden">
+        <form method="post" id="projectForm2" class="projectPage projectForm">
+          <label for="taskName" style="font-size: large;">ADD NEW TASK</label>
+          <input type="text" id="taskName" placeholder="New Task">
+          <button type="button" class="button" id="taskFormBtn">Add</button>
+        </form>
+      </div>
+
+      <div id="selectedProject" class="hidden">
+        <div id="projectHeading" class="pageHeader"></div>
+        <div id="tasksInProject">
         </div>
-        <div class="row">
-            <input type="checkbox" class="projectPartDone"></input> <!-- Cross task when done -->
-            <div class="task">Clean Bedsheets</div>
-            <div class="task">Clean Pillow covers</div>
-            <div class="task">Clean Blankets</div>
-            <div class="task">Clean Sofa Covers</div>
-            <div class="task">Clean Towels</div>
-        </div>
+        <button type="button" id="addTaskToProjectBtn" class="button">+ Add Task</div>
+        
+        <!-- Above will display list of projects, and + sign
+        When you click a project, this will open up.
+        -->
       </div>
 
     </div>

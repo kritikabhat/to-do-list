@@ -29,9 +29,18 @@
     padding-top: 2vh;
     padding: 0.5vw;
     border-radius: 0.5vw;
-    border: 1px solid black;
+    border: 1px solid rgba(0,0,0, 0.1);
     width: 8vw;
     font-size: large;
+}
+.leftBarButton {
+    width: 10vw !important;
+}
+.addProjectBtn {
+    margin-left: 2vw;
+}
+button:hover {
+    background: transparent;
 }
 #logo {
     display: flex;
@@ -70,12 +79,12 @@ h1 {
 #myModal {
     position: absolute;
     z-index: 2;
-    left: 30vw;
+    left: 25vw;
     top: 35vh;
     overflow: auto;
-    background-color: rgb(240, 255, 255);
+    background-color: white;
     padding: 4vh;
-    width: 40vw;
+    width: 50vw;
 }
 #overlay {
     position: fixed;
@@ -96,12 +105,14 @@ h1 {
     justify-content: center;
 }
 #taskForm {
+    width: 70%;
     display: flex;
     flex-direction: column;
     gap: 3vh;
 }
 .rowHeader {
     border: 1px solid rgba(0,0,0, 0.3);
+    background-color: rgba(0,0,0, 0.05);
     font-weight: 500;
     font-size: larger;
     padding: 0.5vw;
@@ -153,8 +164,46 @@ h1 {
 .completed {
     background-color: rgb(80, 200, 120, 0.7);
 }
+.pageHeader { /* Like rowHeader but no grid, background*/
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+    font-weight: 500;
+    font-size: larger;
+    padding: 0.5vw;
+    display: flex;
+    text-align: center;
+    pointer-events: none;
+}
+.projectPage { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+.projectForm {
+    max-width: none !important;
+    margin-left: 8vw !important;
+}
+input {
+    font-size: 1.2rem;
+}
+select {
+    font-size: 1.2rem;
+}
 
-
+/*
+input[type="text"] {
+    line-height: 1.8;
+}
+input[type="date"] {
+    min-height: 1.8rem;
+}
+select {
+    min-height: 1.8rem;
+} */
 
 /* Later. Needs changes
 @media (prefers-color-scheme: dark) {

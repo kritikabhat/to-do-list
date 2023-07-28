@@ -3,15 +3,27 @@ const myModal = document.getElementById("myModal")
 const overlay = document.getElementById("overlay")
 const addBtn = document.getElementById("addBtn")
 const submitBtn = document.getElementById("submitBtn")
-const projectBtn = document.getElementById("projectBtn")
-const archiveBtn = document.getElementById("archiveBtn")
 const homeBtn = document.getElementById("homeBtn")
 const archiveDiv = document.getElementById("archiveDiv")
+const archiveBtn = document.getElementById("archiveBtn")
+const projectListDisplay = document.getElementById("projectListDisplay")
+const selectedProject = document.getElementById("selectedProject")
+const projectHeading = document.getElementById("projectHeading")
+const addTaskToProjectBtn = document.getElementById("addTaskToProjectBtn")
+const addTaskProjectModal = document.getElementById("addTaskProjectModal")
+const taskFormBtn = document.getElementById("taskFormBtn")
+const tasksInProject = document.getElementById("tasksInProject")
+const projectPage = document.getElementById("projectPage")
+const projectBtn = document.getElementById("projectBtn")
+const addProjectBtn = document.getElementById("addProjectBtn")
+const leftBar = document.getElementById("leftBar")
+const projectModal = document.getElementById("projectModal")
+const projectFormBtn = document.getElementById("projectFormBtn")
+// const allUL = Array.from(projectPage.getElementsByClassName("projectUL"))
+// Can access directly in foreach element.textContent for abvoe array
+
 const tasks = []
 
-const handleProjectBtn = () => {
-
-}
 const taskFactory = (task, date, progress) => {
     return { task, date, progress };
 }
@@ -65,11 +77,25 @@ const handleHomeBtn = () => {
     tasksDisplay.classList.remove("hidden")
     archiveDiv.classList.add("hidden")
     archiveDiv.classList.remove("tasksDisplay")
+    projectPage.classList.remove("projectPage")
+    projectPage.classList.add("hidden")
+    projectModal.classList.add("hidden")
+    projectModal.classList.remove("projectPage")
+    selectedProject.classList.remove("projectPage")
+    selectedProject.classList.add("hidden")
 }
 const handleArchiveBtn = () => {
     tasksDisplay.classList.add("hidden")
     tasksDisplay.classList.remove("tasksDisplay")
     archiveDiv.classList.add("tasksDisplay")
+    archiveDiv.classList.remove("hidden")
+    projectPage.classList.remove("projectPage")
+    projectPage.classList.add("hidden")
+    projectModal.classList.add("hidden")
+    projectModal.classList.remove("projectPage")
+    selectedProject.classList.remove("projectPage")
+    selectedProject.classList.add("hidden")
+        
 }
 const handleDoneCheckBox = (e) => {
     if (e.target.checked === true) { 
@@ -131,6 +157,8 @@ const unArchiveTask = (e) => {
     const homeRows = tasksDisplay.children
     for (const row of homeRows) {
         if (row.children[0].firstChild.textContent === e.target.parentNode.firstChild.textContent) {
+            if (!confirm("Do you want to UnArchive this?"))
+                return
             row.classList.remove("hidden")
             row.classList.add("row")
             row.children[3].checked = false
@@ -146,11 +174,145 @@ const unArchiveTask = (e) => {
     }
     return
 }
+const handleProjectBtn = () => {
+    tasksDisplay.classList.add("hidden")
+    tasksDisplay.classList.remove("tasksDisplay")
+    archiveDiv.classList.add("hidden")
+    archiveDiv.classList.remove("tasksDisplay")
+    projectPage.classList.add("projectPage")
+    projectPage.classList.remove("hidden")
+
+    projectModal.classList.add("hidden")
+    projectModal.classList.remove("projectPage")
+    selectedProject.classList.remove("projectPage")
+    selectedProject.classList.add("hidden")
+        
+}
+const handleAddProjectBtn = () => {
+    projectModal.classList.remove("hidden")
+    projectModal.classList.add("projectPage")
+    projectPage.classList.remove("projectPage")
+    projectPage.classList.add("hidden")
+    tasksDisplay.classList.add("hidden")
+    tasksDisplay.classList.remove("tasksDisplay")
+    archiveDiv.classList.add("hidden")
+    archiveDiv.classList.remove("tasksDisplay")
+    selectedProject.classList.remove("projectPage")
+    selectedProject.classList.add("hidden")
+}
+const addProjectToProjectDom = () => { // Adds project to the Project page with no tasks yet
+    const li = document.createElement("li")
+    const projectName = document.getElementById("projectName")
+    if (projectName.value === "") {
+        alert("Project Name is mandatory.")
+        return
+    }
+    li.textContent = projectName.value
+    // li.classList.add("projectUL") 
+    projectListDisplay.appendChild(li)
+    closeProjectModal()
+    resetProjectModal(projectName)
+}
+const closeProjectModal = () => {
+    projectModal.classList.add("hidden")
+    projectModal.classList.remove("projectPage")
+}
+const resetProjectModal = (projectName) => {
+    projectName.value = ""
+    projectName.placeholder = "New Project"
+}
+
+const projectPageSetUp = () => {
+    // If you click the radio box, it should cross the task
+    // Add option to delete (with confirm) the task, since not adding projects to storage right now
+    // This delete option should be on projectListDisplay page (right side of each project name), update addProjectToProjectDom for this.
+
+    addProjectBtn.addEventListener("click", () => {
+        // Open up a small modal on the page (no overlay) that takes Project name
+        handleAddProjectBtn()
+    })
+    projectFormBtn.addEventListener("click", () => {
+        addProjectToProjectDom()
+    })
+
+    // e.currentTarget is giving whole projectListDisplay div object with all children
+    // e.target is giving the clicked ul - we can use this easily
+    projectListDisplay.addEventListener("click", (e) => {
+        console.log(e.target.textContent) // It can be used for Title of new page I guess?
+        selectedProjectDisplay()
+        selectedProjectDOM(e)
+    })
+
+    
+    
+}
+
+const addTaskToProject = () => {
+
+}
+const selectedProjectDisplay = () => { // Switches over to the selected Project page, but has nothing inside
+    selectedProject.classList.remove("hidden")
+    selectedProject.classList.add("projectPage")
+    projectModal.classList.remove("projectPage")
+    projectModal.classList.add("hidden")
+    projectPage.classList.remove("projectPage")
+    projectPage.classList.add("hidden")
+    tasksDisplay.classList.add("hidden")
+    tasksDisplay.classList.remove("tasksDisplay")
+    archiveDiv.classList.add("hidden")
+    archiveDiv.classList.remove("tasksDisplay")
+}
+const selectedProjectDOM = (e) => { // Maybe club this with above one after cleaning up yucky code
+    projectHeading.textContent = e.target.textContent
+
+    addTaskToProjectBtn.addEventListener("click", () => {
+        addTaskProjectModal.classList.add("projectPage")
+        addTaskProjectModal.classList.remove("hidden")
+        selectedProject.classList.add("hidden")
+        selectedProject.classList.remove("projectPage")
+        projectModal.classList.remove("projectPage")
+        projectModal.classList.add("hidden")
+        projectPage.classList.remove("projectPage")
+        projectPage.classList.add("hidden")
+        tasksDisplay.classList.add("hidden")
+        tasksDisplay.classList.remove("tasksDisplay")
+        archiveDiv.classList.add("hidden")
+        archiveDiv.classList.remove("tasksDisplay")
+    })
+
+    taskFormBtn.addEventListener("click", () => {
+        const li = document.createElement("li")
+        const taskName = document.getElementById("taskName")
+        if (taskName.value === "") {
+            alert(`Task is mandatory, click "Project" in left bar if you want to go back.`)
+            return
+        }
+        li.textContent = taskName.value
+        // li.classList.add("projectUL")
+        li.contentEditable = true // For the tasks 
+        tasksInProject.appendChild(li)
+        closeAddTaskProjectModal() // Working now
+        resetAddTaskProjectModal(taskName) // reset not working
+    })
+}
+const closeAddTaskProjectModal = () => {
+    addTaskProjectModal.classList.add("hidden")
+    addTaskProjectModal.classList.remove("projectPage")
+    selectedProject.classList.remove("hidden")
+    selectedProject.classList.add("projectPage")
+}
+const resetAddTaskProjectModal = (taskName) => {
+    taskName.value = ""
+    taskName.placeholder = "New Task"
+}
 
 const setUpPage  = () => {
+    // Delete these later
     addTask("Meet Suzy", "2023-08-22", "Not Started")
     addTask("Dance", "2023-08-22", "Not Started")
     addTask("Shower", "2022-15-09", "In Progress")
+    projectPageSetUp()
+
     addBtn.addEventListener("click", handleAddBtn)
     homeBtn.addEventListener("click", handleHomeBtn)
     archiveBtn.addEventListener("click", handleArchiveBtn)
@@ -166,12 +328,12 @@ const setUpPage  = () => {
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeAddTaskModal()
     })
-
     archiveDiv.addEventListener("click", (e) => {
         if (e.target.classList[0] === "progress")
             unArchiveTask(e)
         else return
     })
+    projectBtn.addEventListener("click", handleProjectBtn)
 
 }
 setUpPage()
