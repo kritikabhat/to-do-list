@@ -22,6 +22,13 @@
 
   <body>
     <div id="container">
+      <div id="leftBar">
+        <button type="button" class="button leftBarButton" id="homeBtn">Home</button>
+        <button type="button" class="button leftBarButton" id="archiveBtn">Archive</button>
+        <button type="button" class="button leftBarButton" id="projectBtn">Project</button>
+        <button type="button" class="button addProjectBtn" id="addProjectBtn">+ Project</button>
+      </div>
+
       <div id="myModal" class="hidden">
         <div id="modalContainer">
                 <div style="font-size: x-large;"><u>Enter Task details:</u></div>
@@ -39,13 +46,6 @@
         </div>
       </div>
       <div id="overlay" class="hidden"></div>
-
-      <div id="leftBar">
-        <button type="button" class="button leftBarButton" id="homeBtn">Home</button>
-        <button type="button" class="button leftBarButton" id="archiveBtn">Archive</button>
-        <button type="button" class="button leftBarButton" id="projectBtn">Project</button>
-        <button type="button" class="button addProjectBtn" id="addProjectBtn">+ Project</button>
-      </div>
       
       <div id="tasksDisplay" class="tasksDisplay">
         <div class="rowHeader">
@@ -90,10 +90,6 @@
         <div id="tasksInProject">
         </div>
         <button type="button" id="addTaskToProjectBtn" class="button">+ Add Task</div>
-        
-        <!-- Above will display list of projects, and + sign
-        When you click a project, this will open up.
-        -->
       </div>
 
     </div>

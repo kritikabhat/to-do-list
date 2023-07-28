@@ -76,16 +76,7 @@ h1 {
 .tasksDisplayHide {
     display: none;
 }
-#myModal {
-    position: absolute;
-    z-index: 2;
-    left: 25vw;
-    top: 35vh;
-    overflow: auto;
-    background-color: white;
-    padding: 4vh;
-    width: 50vw;
-}
+
 #overlay {
     position: fixed;
     left: 0;
@@ -193,6 +184,87 @@ input {
 select {
     font-size: 1.2rem;
 }
+
+
+
+#myModal {
+    position: absolute;
+    z-index: 2;
+    left: 25vw;
+    top: 35vh;
+    overflow: auto;
+    background-color: white;
+    padding: 4vh;
+    width: 50vw;
+}
+#tasksDisplay {
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+#archiveDiv {
+    display: flex;
+    flex-direction: column;
+    min-width: 70%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+#projectPage { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+#projectModal { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+#addTaskProjectModal { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+#selectedProject { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 14vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
+    z-index: 0;
+}
+
+
+
+
+
+
+
+
 
 /*
 input[type="text"] {
