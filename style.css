@@ -227,6 +227,11 @@ input[type="date"] {
     flex-direction: column;
     row-gap: 2vh;
 }
+.tasksInProject {
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+}
 
 
 
