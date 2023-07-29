@@ -2,7 +2,7 @@
     font-family: 'Roboto', sans-serif;
     user-select: none;
 }
-.hidden { /* Trying to switch pages using just this */
+.hidden {
     display: none !important;
 }
 #container {
@@ -62,38 +62,6 @@ button:hover {
 }
 h1 {
     padding-left: 1vw;
-}
-.tasksDisplay {
-    display: flex;
-    flex-direction: column;
-    min-width: 70%;
-    padding-top: 2vh;
-    margin-left: 14vw;
-    margin-right: 2vw;
-    row-gap: 2vh;
-    z-index: 0;
-}
-.tasksDisplayHide {
-    display: none;
-}
-
-#overlay {
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0, 0.8);
-    z-index: 1;
-}
-#modalContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    align-items: center;
-    justify-content: center;
 }
 #taskForm {
     width: 70%;
@@ -155,47 +123,55 @@ h1 {
 .completed {
     background-color: rgb(80, 200, 120, 0.7);
 }
-.pageHeader { /* Like rowHeader but no grid, background*/
-    border-bottom: 1px solid rgba(0,0,0, 0.3);
+.pageHeader {
+    border: 1px solid rgba(0,0,0, 0.3);
+    background-color: rgba(0,0,0, 0.05);
     font-weight: 500;
     font-size: larger;
     padding: 0.5vw;
-    display: flex;
     text-align: center;
     pointer-events: none;
 }
-.projectPage { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+.pageRow {
+    font-size: large;
+    text-align: center;
+    border-bottom: 1px solid rgba(0,0,0, 0.3);
+    padding-bottom: 1vh;
+}
+#projectListDisplay {
     display: flex;
     flex-direction: column;
-    max-width: 60%;
+    row-gap: 2vh;
+}
+#projectPage {
+    display: flex;
+    flex-direction: column;
+    max-width: 50%;
     padding-top: 2vh;
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
-}
-.projectForm {
-    max-width: none !important;
-    margin-left: 8vw !important;
 }
 input {
     font-size: 1.2rem;
+    color:rgba(0,0,0, 0.7);
 }
 select {
     font-size: 1.2rem;
+    color:rgba(0,0,0, 0.7);
 }
-
-
-
+input[type="date"] {
+    font-family: 'Roboto', sans-serif;
+    color:rgba(0,0,0, 0.7);
+}
 #myModal {
-    position: absolute;
-    z-index: 2;
-    left: 25vw;
-    top: 35vh;
-    overflow: auto;
-    background-color: white;
-    padding: 4vh;
-    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding-top: 2vh;
+    margin-left: 22vw;
+    margin-right: 2vw;
+    row-gap: 2vh;
 }
 #tasksDisplay {
     display: flex;
@@ -205,7 +181,6 @@ select {
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
 }
 #archiveDiv {
     display: flex;
@@ -215,9 +190,21 @@ select {
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
 }
-#projectPage { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+#projectModal {
+    max-width: 60%;
+    margin-left: 14vw;
+    margin-right: 2vw;
+}
+.projectForm {
+    margin-left: 8vw !important;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2vh;
+    row-gap: 2vh;
+    width: 70%;
+}
+#addTaskProjectModal {
     display: flex;
     flex-direction: column;
     max-width: 60%;
@@ -225,9 +212,8 @@ select {
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
 }
-#projectModal { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+#selectedProject {
     display: flex;
     flex-direction: column;
     max-width: 60%;
@@ -235,32 +221,12 @@ select {
     margin-left: 14vw;
     margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
 }
-#addTaskProjectModal { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
+#tasksInProject {
     display: flex;
     flex-direction: column;
-    max-width: 60%;
-    padding-top: 2vh;
-    margin-left: 14vw;
-    margin-right: 2vw;
     row-gap: 2vh;
-    z-index: 0;
 }
-#selectedProject { /* tasksDisplay like but max-width, kept seperate to ease switching between pages */
-    display: flex;
-    flex-direction: column;
-    max-width: 60%;
-    padding-top: 2vh;
-    margin-left: 14vw;
-    margin-right: 2vw;
-    row-gap: 2vh;
-    z-index: 0;
-}
-
-
-
-
 
 
 

@@ -30,22 +30,17 @@
       </div>
 
       <div id="myModal" class="hidden">
-        <div id="modalContainer">
-                <div style="font-size: x-large;"><u>Enter Task details:</u></div>
-                <form method="post" id="taskForm">
-                  <input type="text" id="task" placeholder="Task">
-                  <input type="date" id="date">
-                  <select id="progressCheckBox" name="progressCheckBox">
-                    <option value="notStarted">NOT STARTED</option>
-                    <option value="inProgress">IN PROGRESS</option>
-                  </select>
-                </form>
-                <div id="formButtonContainer">
-                  <button type="button" form="taskForm" class="button" id="submitBtn">Submit</button>
-                </div>
-        </div>
+        <form method="post" id="taskForm">
+          <label for="task" style="font-size: large;">ADD TASK</label>
+          <input type="text" id="task" placeholder="Task">
+          <input type="date" id="date">
+          <select id="progressCheckBox" name="progressCheckBox">
+            <option value="notStarted">NOT STARTED</option>
+            <option value="inProgress">IN PROGRESS</option>
+          </select>
+          <button type="button" class="button" id="submitBtn">Submit</button>
+        </form>
       </div>
-      <div id="overlay" class="hidden"></div>
       
       <div id="tasksDisplay" class="tasksDisplay">
         <div class="rowHeader">
@@ -65,21 +60,21 @@
       </div>
 
       <div id="projectPage" class="hidden">
-        <div class="pageHeader">Current Projects:</div>
-        <ol id="projectListDisplay"></ol>
+        <div class="pageHeader">Current Projects</div>
+        <div id="projectListDisplay"></div>
       </div>
 
       <div id="projectModal" class="hidden">
-        <form method="post" id="projectForm" class="projectPage projectForm">
-          <label for="projectName" style="font-size: large;">ADD NEW PROJECT</label>
+        <form method="post" id="projectForm" class="projectForm">
+          <label for="projectName" style="font-size: large;">ADD PROJECT</label>
           <input type="text" id="projectName" placeholder="New Project">
           <button type="button" class="button" id="projectFormBtn">Add</button>
         </form>
       </div>
 
       <div id="addTaskProjectModal" class="hidden">
-        <form method="post" id="projectForm2" class="projectPage projectForm">
-          <label for="taskName" style="font-size: large;">ADD NEW TASK</label>
+        <form method="post" id="projectForm2" class="projectForm">
+          <label for="taskName" style="font-size: large;">ADD TASK</label>
           <input type="text" id="taskName" placeholder="New Task">
           <button type="button" class="button" id="taskFormBtn">Add</button>
         </form>
@@ -87,9 +82,8 @@
 
       <div id="selectedProject" class="hidden">
         <div id="projectHeading" class="pageHeader"></div>
-        <div id="tasksInProject">
-        </div>
-        <button type="button" id="addTaskToProjectBtn" class="button">+ Add Task</div>
+        <div id="tasksInProject"></div>
+        <button type="button" id="addTaskToProjectBtn" class="button">+ Add Task
       </div>
 
     </div>
