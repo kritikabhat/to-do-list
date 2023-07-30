@@ -33,11 +33,13 @@
     width: 8vw;
     font-size: large;
 }
-.leftBarButton {
-    width: 10vw !important;
+.wideBtn {
+    width: 12vw !important;
 }
-.addProjectBtn {
-    margin-left: 2vw;
+.addProjectLeftBarBtn {
+    margin-left: 1vw;
+    margin-right: 2vw;
+    width: 11vw !important;
 }
 button:hover {
     background: transparent;
@@ -137,20 +139,13 @@ h1 {
     text-align: center;
     border-bottom: 1px solid rgba(0,0,0, 0.3);
     padding-bottom: 1vh;
+    padding-top: 2vh;
 }
-#projectListDisplay {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2vh;
-}
-#projectPage {
-    display: flex;
-    flex-direction: column;
+#listAllProjectsPage {
     max-width: 50%;
     padding-top: 2vh;
     margin-left: 14vw;
     margin-right: 2vw;
-    row-gap: 2vh;
 }
 input {
     font-size: 1.2rem;
@@ -164,7 +159,7 @@ input[type="date"] {
     font-family: 'Roboto', sans-serif;
     color:rgba(0,0,0, 0.7);
 }
-#myModal {
+#addTaskHeaderFormPage {
     display: flex;
     flex-direction: column;
     max-width: 60%;
@@ -173,7 +168,7 @@ input[type="date"] {
     margin-right: 2vw;
     row-gap: 2vh;
 }
-#tasksDisplay {
+#homePage {
     display: flex;
     flex-direction: column;
     min-width: 70%;
@@ -182,7 +177,7 @@ input[type="date"] {
     margin-right: 2vw;
     row-gap: 2vh;
 }
-#archiveDiv {
+#archivePage {
     display: flex;
     flex-direction: column;
     min-width: 70%;
@@ -191,7 +186,7 @@ input[type="date"] {
     margin-right: 2vw;
     row-gap: 2vh;
 }
-#projectModal {
+#addProjectFormPage {
     max-width: 60%;
     margin-left: 14vw;
     margin-right: 2vw;
@@ -204,7 +199,7 @@ input[type="date"] {
     row-gap: 2vh;
     width: 70%;
 }
-#addTaskProjectModal {
+#addTaskToProjectFormPage {
     display: flex;
     flex-direction: column;
     max-width: 60%;
@@ -213,53 +208,15 @@ input[type="date"] {
     margin-right: 2vw;
     row-gap: 2vh;
 }
-#selectedProject {
-    display: flex;
-    flex-direction: column;
+#listTasksInProjectPage {
     max-width: 60%;
     padding-top: 2vh;
     margin-left: 14vw;
     margin-right: 2vw;
-    row-gap: 2vh;
 }
-#tasksInProject {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2vh;
+.projectDetails > .tasksInProject {
+    margin-bottom: 2vh;
 }
-.tasksInProject {
-    display: flex;
-    flex-direction: column;
-    row-gap: 2vh;
+.projectDetails > .button {
+    margin-left: 3vh;
 }
-
-
-
-
-
-/*
-input[type="text"] {
-    line-height: 1.8;
-}
-input[type="date"] {
-    min-height: 1.8rem;
-}
-select {
-    min-height: 1.8rem;
-} */
-
-/* Later. Needs changes
-@media (prefers-color-scheme: dark) {
-    :root {
-        color-scheme: dark;
-    }
-    #container {
-        background-color: black !important;
-    }
-    #introPara, #bottomContainer, #container {
-        background-color: rgb(40, 40, 43);
-    }
-    #middleSection {
-        background-color: 	rgb(52, 52, 52);
-    }
-}*/

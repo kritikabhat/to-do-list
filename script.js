@@ -1,95 +1,87 @@
-// The 6 views/pages - separate modals and pages
-const tasksDisplay = document.getElementById("tasksDisplay") // Home page
-const addTaskProjectModal = document.getElementById("addTaskProjectModal") // Modal with Form to add task
-const selectedProject = document.getElementById("selectedProject") // Opens page where you can click "Add" to add tasks to project
-const projectModal = document.getElementById("projectModal") // "Add Project" modal
-const projectPage = document.getElementById("projectPage") // Displays all current projects
-const archiveDiv = document.getElementById("archiveDiv") // Archive page
-const myModal = document.getElementById("myModal") // The modal that opens after clicking "+ Task" in header
-
-// All buttons
-const addBtn = document.getElementById("addBtn") // Btn in header "+ Task"
-const submitBtn = document.getElementById("submitBtn") // Btn in the modal after "+ Task"
-const homeBtn = document.getElementById("homeBtn") // Back to Home page
-const archiveBtn = document.getElementById("archiveBtn") // To archive page
-
-const taskFormBtn = document.getElementById("taskFormBtn") // Submits "Add New Task" form
-const projectBtn = document.getElementById("projectBtn") // Submits "Add Task to Project" form
-const addProjectBtn = document.getElementById("addProjectBtn") // Opens "Add new project" modal
-const projectFormBtn = document.getElementById("projectFormBtn") // Btn "Add" in the page after "+ Project"
-
-// Containers within pages
-const projectListDisplay = document.getElementById("projectListDisplay")
-const tasksInProject = document.getElementById("tasksInProject")
+const homePage = document.getElementById("homePage")
+const addTaskToProjectFormPage = document.getElementById("addTaskToProjectFormPage")
+const listTasksInProjectPage = document.getElementById("listTasksInProjectPage")
+const addProjectFormPage = document.getElementById("addProjectFormPage")
+const listAllProjectsPage = document.getElementById("listAllProjectsPage")
+const archivePage = document.getElementById("archivePage")
+const addTaskHeaderFormPage = document.getElementById("addTaskHeaderFormPage")
+const submitTaskProjectBtn = document.getElementById("submitTaskProjectBtn")
+const listAllProjectChildContainer = document.getElementById("listAllProjectChildContainer")
 const leftBar = document.getElementById("leftBar")
-
-
 const projectDetails = document.getElementsByClassName("projectDetails")
 
-let project
-const projectDetailList = selectedProject.children // Used to loop through projects in selectedProject 
-
-
-
-/**
- * Rename above variables. But don't touch the index yet. 
- * That can be done later (since CSS also needs to be changed.)
- */
-
 const tasks = []
-const taskFactory = (task, date, progress) => { // Done
+const projectList = listTasksInProjectPage.children
+let selectedProject // Stores the latest selected project
+
+const taskFactory = (task, date, progress) => {
     return { task, date, progress };
 }
-const hideAllPages = () => { // Done
-    addTaskProjectModal.classList.add("hidden")
-    selectedProject.classList.add("hidden")
-    projectModal.classList.add("hidden")
-    projectPage.classList.add("hidden")
-    tasksDisplay.classList.add("hidden")
-    archiveDiv.classList.add("hidden")
-    myModal.classList.add("hidden")
+const hideAllPages = () => {
+    addTaskToProjectFormPage.classList.add("hidden")
+    listTasksInProjectPage.classList.add("hidden")
+    addProjectFormPage.classList.add("hidden")
+    listAllProjectsPage.classList.add("hidden")
+    homePage.classList.add("hidden")
+    archivePage.classList.add("hidden")
+    addTaskHeaderFormPage.classList.add("hidden")
 }
-const makeSelectedPageVisible = (selectedPage) => { // Done
+const makeSelectedPageVisible = (selectedPage) => {
     selectedPage.classList.remove("hidden")
 }
-const resetInput = (inputName, placeHolderValue) => { // Done
+const resetInput = (inputName, placeHolderValue) => {
     inputName.value = ""
     inputName.placeholder = placeHolderValue
 }
-const resetTaskInputs = (date, checkBox) => { // Done
+const resetTaskInputs = (date, checkBox) => {
     checkBox.value = "notStarted"
     date.value = ""
 }
-const closeAddTaskModal = () => {  // Done // This one is used in 2 places, so keep.
-    myModal.classList.add("hidden")
-    makeSelectedPageVisible(tasksDisplay)
+const closeAddTaskModal = () => {
+    addTaskHeaderFormPage.classList.add("hidden")
+    makeSelectedPageVisible(homePage)
 }
-
-
-
-
-// Not refactored yet
-const addTask = (task, date, progress) => {
-    const taskRow = taskFactory(task, date, progress)
-    tasks.push(taskRow) // Add to tasks[]
-    addTaskToDom(taskRow)
+const hideAllProjects = () => {
+    for (let i = 0; i < projectList.length; i++) {
+        projectList[i].classList.add("hidden")
+    } 
 }
-const handleSubmitBtn = () => {
-    const task = document.getElementById("task")
-    const date = document.getElementById("date")
-    const progressCheckBox = document.getElementById("progressCheckBox")
-    let progress
-    if (task.value === "" || date.value === null || date.value === undefined) {
-        alert("Both Task and Date are mandatory fields.")
+const findSelectedProject = (e) => {
+    for (let i = 0; i < projectList.length; i++) {
+        if (e.target.textContent === projectList[i].firstChild.textContent) {
+            selectedProject = projectList[i]
+            makeSelectedPageVisible(projectList[i])
+        }
+    }
+}
+const addTaskstoProject = () => {
+    const div = document.createElement("div")
+    const taskName = document.getElementById("taskName")
+    if (taskName.value === "") {
+        alert("Task Name is mandatory.")
         return
     }
-    progress = (progressCheckBox.value === "notStarted") ? "Not Started" : "In Progress"
-    addTask(task.value, date.value, progress)
-    closeAddTaskModal()
-    resetInput(task, "Task")
-    resetTaskInputs(date, progressCheckBox)
+    div.textContent = taskName.value
+    div.contentEditable = true
+    div.classList.add("pageRow")
+
+    for (let i = 0; i < projectList.length; i++) {
+        if (projectList[i] === selectedProject) {
+            listTasksInProjectPage.children[i].children[1].appendChild(div)
+            hideAllPages()
+            hideAllProjects()
+            makeSelectedPageVisible(listTasksInProjectPage)
+            makeSelectedPageVisible(listTasksInProjectPage.children[i]) 
+            resetInput(taskName, "New Task")
+        }
+    }
 }
-const changeProgress = (e) => {
+const addTaskToHome = (task, date, progress) => {
+    const taskRow = taskFactory(task, date, progress)
+    tasks.push(taskRow) // Add to tasks[]
+    addTaskToHomeDOM(taskRow)
+}
+const changeProgressStatus = (e) => {
     if (e.target.textContent === "In Progress") {
         e.target.textContent = "Not Started"
         e.target.classList.remove("inProgress")
@@ -100,23 +92,30 @@ const changeProgress = (e) => {
         e.target.classList.add("inProgress")
     } 
 }
-const handleDoneCheckBox = (e) => {
-    if (e.target.checked === true) { 
-        e.target.parentNode.classList.add("hidden")
-        e.target.parentNode.classList.remove("row")  
-    }
-    const children = e.target.parentNode.children
-    let arr = []
+const addDivsForEachProject = () => {
+    const div = document.createElement("div")
+    div.classList.add("projectDetails")
+    div.classList.add("hidden")
 
-    for (const child of children) {
-        arr.push(child.textContent)
-    }
-    const taskRow = taskFactory(arr[0], arr[1], "Complete")
+    let childDiv = document.createElement("div")
+    childDiv.classList.add("pageHeader")
+    childDiv.textContent = projectName.value
+    div.appendChild(childDiv)
 
-    for (let i = 0; i < tasks.length; i++) { // Remove from tasks[]
-       if (tasks[i].task === taskRow.task) tasks.splice(i, 1)
-    }
-    moveToArchive(taskRow)
+    childDiv = document.createElement("div")
+    childDiv.classList.add("tasksInProject")
+    div.appendChild(childDiv)
+    
+    const arr = ["+ Add Task", "Back"]
+    arr.forEach(item => {
+        childDiv = document.createElement("button")
+        childDiv.classList.add("button")
+        childDiv.classList.add("wideBtn")
+        childDiv.textContent = item
+        div.appendChild(childDiv)
+    });
+
+    listTasksInProjectPage.appendChild(div)
 }
 const moveToArchive = (taskRow) => {
     const newRow = document.createElement("div")
@@ -131,9 +130,30 @@ const moveToArchive = (taskRow) => {
         newRow.appendChild(taskDetail)
     });
     newRow.classList.add("archiveRow")
-    archiveDiv.appendChild(newRow)
+    archivePage.appendChild(newRow)
 }
-const addTaskToDom = (taskRow) => {
+const unArchive = (e) => {
+    const homeRows = homePage.children
+    for (const row of homeRows) {
+        if (row.children[0].firstChild.textContent === e.target.parentNode.firstChild.textContent) {
+            if (!confirm("Do you want to UnArchive this?"))
+                return
+            row.classList.remove("hidden")
+            row.classList.add("row")
+            row.children[3].checked = false
+            e.target.parentNode.classList.add("hidden")
+            e.target.parentNode.classList.remove("archiveRow")
+
+            const taskRow = taskFactory( // Re-Add to tasks []
+                e.target.parentNode.children[0].textContent, 
+                e.target.parentNode.children[1].textContent, 
+                "Not Started")
+            tasks.push(taskRow)
+        }
+    }
+    return
+}
+const addTaskToHomeDOM = (taskRow) => {
     const newRow = document.createElement("div")
     let arr = ["task", "date", "progress"]
     let taskDetail
@@ -154,31 +174,10 @@ const addTaskToDom = (taskRow) => {
     newRow.appendChild(taskDetail)
 
     newRow.classList.add("row")
-    tasksDisplay.appendChild(newRow)
+    homePage.appendChild(newRow)
 }
-const unArchiveTask = (e) => {
-    const homeRows = tasksDisplay.children
-    for (const row of homeRows) {
-        if (row.children[0].firstChild.textContent === e.target.parentNode.firstChild.textContent) {
-            if (!confirm("Do you want to UnArchive this?"))
-                return
-            row.classList.remove("hidden")
-            row.classList.add("row")
-            row.children[3].checked = false
-            e.target.parentNode.classList.add("hidden")
-            e.target.parentNode.classList.remove("archiveRow")
-
-            const taskRow = taskFactory( // Re-Add to tasks []
-                e.target.parentNode.children[0].textContent, 
-                e.target.parentNode.children[1].textContent, 
-                "Not Started")
-            tasks.push(taskRow)
-        }
-    }
-    return
-}
-const addProjectToProjectDom = () => { /* Need to add a trash can next to each project, easier now that they are divs */
-    let div = document.createElement("div")
+const addProjectToProjectDOM = () => {
+    const div = document.createElement("div")
     const projectName = document.getElementById("projectName")
     if (projectName.value === "") {
         alert("Project Name is mandatory.")
@@ -186,139 +185,97 @@ const addProjectToProjectDom = () => { /* Need to add a trash can next to each p
     }
     div.textContent = projectName.value
     div.classList.add("pageRow")
-    projectListDisplay.appendChild(div)
-
-// This adds projectDetails for each new project. pageHeader gets the project name. Also a button "+ Add Task"
-// Can move all these to a separate method or something later
-
-    div = document.createElement("div")
-    div.classList.add("projectDetails")
-    div.classList.add("hidden")
-
-    let childDiv = document.createElement("div")
-    childDiv = document.createElement("div")
-    childDiv.classList.add("pageHeader")
-    childDiv.textContent = projectName.value
-    div.appendChild(childDiv)
-
-    childDiv = document.createElement("div")
-    childDiv = document.createElement("div")
-    childDiv.classList.add("tasksInProject")
-    div.appendChild(childDiv)
-    
-    childDiv = document.createElement("button")
-    childDiv.classList.add("button")
-    childDiv.classList.add("addTaskToProjectBtn") // There is no styling with this.
-    childDiv.textContent = "+ Add Task"
-    div.appendChild(childDiv)
-
-    childDiv = document.createElement("button") // Add back button to make visiblity thing easier
-    childDiv.classList.add("button")
-    childDiv.classList.add("back") // There is no styling with this.
-    childDiv.textContent = "Back"
-    div.appendChild(childDiv)
-
-    selectedProject.appendChild(div)
-
+    listAllProjectChildContainer.appendChild(div)
+    addDivsForEachProject()
     hideAllPages()
-    makeSelectedPageVisible(projectPage)
+    makeSelectedPageVisible(listAllProjectsPage)
     resetInput(projectName, "New Project")
 }
-const hideAllProjects = () => {
-    for (let i = 0; i < projectDetailList.length; i++) {
-        projectDetailList[i].classList.add("hidden")
-    } 
-}
-
-let j = 0
-const selectedProjectDOM = (e) => {
-    for (let i = 0; i < projectDetailList.length; i++) {
-        if (e.target.textContent === projectDetailList[i].firstChild.textContent) {
-            project = projectDetailList[i]
-            // This works. Now only the selected project page is visible!!!!
-            makeSelectedPageVisible(projectDetailList[i])
-        }
+const handleDoneCheckBox = (e) => {
+    if (e.target.checked === true) { 
+        e.target.parentNode.classList.add("hidden")
+        e.target.parentNode.classList.remove("row")  
     }
+    const children = e.target.parentNode.children
+    let arr = []
+    for (const child of children) {
+        arr.push(child.textContent)
+    }
+    const taskRow = taskFactory(arr[0], arr[1], "Complete")
 
-    taskFormBtn.addEventListener("click", () => {
-        const div = document.createElement("div")
-        const taskName = document.getElementById("taskName")
-        div.textContent = taskName.value
-        div.contentEditable = true
-        div.classList.add("pageRow")
-        for (let i = 0; i < projectDetailList.length; i++) {
-            if (projectDetailList[i] === project) {
-                selectedProject.children[i].children[1].appendChild(div)
-                hideAllPages()
-                hideAllProjects()
-                makeSelectedPageVisible(selectedProject)
-                makeSelectedPageVisible(selectedProject.children[i]) 
-                resetInput(taskName, "New Task")
-            }
-        }
-    })
+    for (let i = 0; i < tasks.length; i++) { // Remove from tasks[]
+       if (tasks[i].task === taskRow.task) tasks.splice(i, 1)
+    }
+    moveToArchive(taskRow)
 }
-
-const projectPageSetUp = () => {
+const handleSubmitTaskHomeBtn = () => {
+    const task = document.getElementById("task")
+    const date = document.getElementById("date")
+    const progressCheckBox = document.getElementById("progressCheckBox")
+    let progress
+    if (task.value === "" || !date.value) {
+        alert("Both Task and Date are mandatory fields.")
+        return
+    }
+    progress = (progressCheckBox.value === "notStarted") ? "Not Started" : "In Progress"
+    addTaskToHome(task.value, date.value, progress)
+    closeAddTaskModal()
+    resetInput(task, "Task")
+    resetTaskInputs(date, progressCheckBox)
+}
+const setUpPage = () => {
     document.addEventListener("click", (e) => {
-        if (e.target.id === "homeBtn") {
+        if (e.target.id === "homeLeftBarBtn") {
             hideAllPages()
-            makeSelectedPageVisible(tasksDisplay)
-        } else if (e.target.id === "archiveBtn") {
+            makeSelectedPageVisible(homePage)
+        } else if (e.target.id === "archiveLeftBarBtn") {
             hideAllPages()
-            makeSelectedPageVisible(archiveDiv)
-        } else if (e.target.id === "projectBtn") {
+            makeSelectedPageVisible(archivePage)
+        } else if (e.target.id === "projectLeftBarBtn") {
             hideAllPages()
-            makeSelectedPageVisible(projectPage)
-            hideAllProjects() // Need to call hideAllProjects(projectDetailList) here.
-        } else if (e.target.id === "addProjectBtn") {
+            makeSelectedPageVisible(listAllProjectsPage)
+            hideAllProjects()
+        } else if (e.target.id === "addProjectLeftBarBtn") {
             hideAllPages()
-            makeSelectedPageVisible(projectModal)
-        } else if (e.target.id === "projectFormBtn") {
-            addProjectToProjectDom()
-        } else if (e.target.id === "addBtn") {
+            makeSelectedPageVisible(addProjectFormPage)
+        } else if (e.target.id === "submitNewProjectBtn") {
+            addProjectToProjectDOM()
+        } else if (e.target.id === "addHeaderBtn") {
             hideAllPages()
-            makeSelectedPageVisible(myModal)
-        } else if (e.target.id === "submitBtn") {
-            handleSubmitBtn()
+            makeSelectedPageVisible(addTaskHeaderFormPage)
+        } else if (e.target.id === "submitTaskHeaderBtn") {
+            handleSubmitTaskHomeBtn()
         } else if (e.target.textContent === "+ Add Task") {
             hideAllPages()
-            makeSelectedPageVisible(addTaskProjectModal)
-            // FOR NOW, THIS SELECTED event.target.parentNode projectDetails is not hidden
+            makeSelectedPageVisible(addTaskToProjectFormPage)
         } else if (e.target.textContent === "Back") {
             hideAllPages()
-            makeSelectedPageVisible(projectPage)
+            makeSelectedPageVisible(listAllProjectsPage)
             hideAllProjects()
+        } else if (e.target.id === "submitTaskProjectBtn") {
+            addTaskstoProject()
         }
     })
     document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeAddTaskModal()
     })
-    archiveDiv.addEventListener("click", (e) => {
+    archivePage.addEventListener("click", (e) => {
         if (e.target.classList[0] === "progress")
-            unArchiveTask(e)
+            unArchive(e)
         else return
     })
-    tasksDisplay.addEventListener("click", (e) => {
+    homePage.addEventListener("click", (e) => {
         if (e.target.classList[0] === "progress")
-            changeProgress(e)
+        changeProgressStatus(e)
         else if (e.target.classList[0] === "done")
             handleDoneCheckBox(e)
         else
             return
     })
-    projectListDisplay.addEventListener("click", (e) => {
+    listAllProjectChildContainer.addEventListener("click", (e) => {
         hideAllPages()
-        makeSelectedPageVisible(selectedProject) // All projectDetails are hidden initially
-        selectedProjectDOM(e)
+        makeSelectedPageVisible(listTasksInProjectPage)
+        findSelectedProject(e)
     })
-
-}
-const setUpPage  = () => {
-    // Delete these later
-    addTask("Meet Suzy", "2023-08-22", "Not Started")
-    addTask("Dance", "2023-08-22", "Not Started")
-    addTask("Shower", "2022-15-09", "In Progress")
-    projectPageSetUp()
 }
 setUpPage()

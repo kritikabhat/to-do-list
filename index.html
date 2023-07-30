@@ -16,33 +16,33 @@
       <h1>Tasks To Do</h1>
     </div>
     <div id="addBtnDiv">
-      <button type="button" class="button" id="addBtn">+ Task</button>
+      <button type="button" class="button" id="addHeaderBtn">+ Task</button>
     </div>
   </header>
 
   <body>
     <div id="container">
       <div id="leftBar">
-        <button type="button" class="button leftBarButton" id="homeBtn">Home</button>
-        <button type="button" class="button leftBarButton" id="archiveBtn">Archive</button>
-        <button type="button" class="button leftBarButton" id="projectBtn">Project</button>
-        <button type="button" class="button addProjectBtn" id="addProjectBtn">+ Project</button>
+        <button type="button" class="button wideBtn" id="homeLeftBarBtn">Home</button>
+        <button type="button" class="button wideBtn" id="archiveLeftBarBtn">Archive</button>
+        <button type="button" class="button wideBtn" id="projectLeftBarBtn">Project</button>
+        <button type="button" class="button addProjectLeftBarBtn" id="addProjectLeftBarBtn">+ Project</button>
       </div>
 
-      <div id="myModal" class="hidden">
+      <div id="addTaskHeaderFormPage" class="hidden">
         <form method="post" id="taskForm">
           <label for="task" style="font-size: large;">ADD TASK</label>
-          <input type="text" id="task" placeholder="Task">
+          <input type="text" onkeydown="return (event.keyCode!=13);" id="task" placeholder="Task">
           <input type="date" id="date">
           <select id="progressCheckBox" name="progressCheckBox">
             <option value="notStarted">NOT STARTED</option>
             <option value="inProgress">IN PROGRESS</option>
           </select>
-          <button type="button" class="button" id="submitBtn">Submit</button>
+          <button type="button" class="button" id="submitTaskHeaderBtn">Submit</button>
         </form>
       </div>
       
-      <div id="tasksDisplay" class="tasksDisplay">
+      <div id="homePage" class="homePage">
         <div class="rowHeader">
             <div class="task">Task</div>
             <div class="date">Deadline</div>
@@ -51,7 +51,7 @@
         </div>
       </div>
 
-      <div id="archiveDiv" class="hidden">
+      <div id="archivePage" class="hidden">
         <div class="rowHeader">
             <div class="task">Task</div>
             <div class="date">Deadline</div>
@@ -59,29 +59,29 @@
         </div>
       </div>
 
-      <div id="projectPage" class="hidden">
+      <div id="listAllProjectsPage" class="hidden">
         <div class="pageHeader">Current Projects</div>
-        <div id="projectListDisplay">
+        <div id="listAllProjectChildContainer">
         </div>
       </div>
 
-      <div id="projectModal" class="hidden">
+      <div id="addProjectFormPage" class="hidden">
         <form method="post" id="projectForm" class="projectForm">
           <label for="projectName" style="font-size: large;">ADD PROJECT</label>
-          <input type="text" id="projectName" placeholder="New Project">
-          <button type="button" class="button" id="projectFormBtn">Add</button>
+          <input type="text" onkeydown="return (event.keyCode!=13);" id="projectName" placeholder="New Project">
+          <button type="button" class="button" id="submitNewProjectBtn">Submit</button>
         </form>
       </div>
 
-      <div id="addTaskProjectModal" class="hidden">
+      <div id="addTaskToProjectFormPage" class="hidden">
         <form method="post" id="projectForm2" class="projectForm">
           <label for="taskName" style="font-size: large;">ADD TASK</label>
-          <input type="text" id="taskName" placeholder="New Task">
-          <button type="button" class="button" id="taskFormBtn">Submit</button>
+          <input type="text" onkeydown="return (event.keyCode!=13);" id="taskName" placeholder="New Task">
+          <button type="button" class="button" id="submitTaskProjectBtn">Submit</button>
         </form>
       </div>
 
-      <div id="selectedProject" class="hidden">
+      <div id="listTasksInProjectPage" class="hidden">
       </div>
 
     </div>
